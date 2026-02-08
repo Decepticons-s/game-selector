@@ -1,0 +1,50 @@
+<view class="container">
+  <!-- 筛选器 -->
+  <view class="filter">
+    <text class="filter-label">人数筛选：</text>
+    <input
+      class="filter-input"
+      type="number"
+      placeholder="输入人数"
+      value="{{playerCount}}"
+      bindinput="onPlayerCountChange"
+    />
+  </view>
+
+  <!-- 游戏列表 -->
+  <view class="game-list">
+    <view
+      class="game-card"
+      wx:for="{{games}}"
+      wx:key="_id"
+      data-id="{{item._id}}"
+      bindtap="viewDetail"
+    >
+      <image
+        class="game-cover"
+        src="{{item.coverImage || '/images/default-cover.png'}}"
+        mode="aspectFill"
+      ></image>
+      <view class="game-info">
+        <text class="game-name">{{item.name}}</text>
+        <view class="game-meta">
+          <text class="player-count">{{item.playerCount.min}}-{{item.playerCount.max}}人</text>
+          <text class="duration">{{item.duration}}分钟</text>
+        </view>
+        <view class="tags">
+          <text class="tag" wx:for="{{item.tags}}" wx:key="index" wx:for-item="tag">{{tag}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty" wx:if="{{!loading && games.length === 0}}">
+    <text class="empty-text">暂无游戏</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

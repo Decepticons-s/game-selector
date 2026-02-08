@@ -1,0 +1,139 @@
+.container {
+  padding: 30rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.logout-btn {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.add-section {
+  margin-bottom: 30rpx;
+}
+
+.add-btn {
+  width: 100%;
+  background: #FF6B35;
+  color: white;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  font-size: 32rpx;
+}
+
+.add-icon {
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.game-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.game-item {
+  background: white;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  display: flex;
+  gap: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.game-cover {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 15rpx;
+  flex-shrink: 0;
+}
+
+.game-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.game-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.game-meta {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 10rpx;
+}
+
+.game-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.tag {
+  background: #FFE5DC;
+  color: #FF6B35;
+  padding: 5rpx 15rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+}
+
+.game-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  justify-content: center;
+}
+
+.action-btn {
+  width: 100rpx;
+  font-size: 24rpx;
+}
+
+.edit-btn {
+  background: #4CAF50;
+  color: white;
+}
+
+.delete-btn {
+  background: #f44336;
+  color: white;
+}
+
+.empty {
+  text-align: center;
+  padding: 100rpx 0;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.loading {
+  text-align: center;
+  padding: 100rpx 0;
+  font-size: 28rpx;
+  color: #999;
+}

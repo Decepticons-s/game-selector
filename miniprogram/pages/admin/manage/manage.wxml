@@ -1,0 +1,58 @@
+<view class="container">
+  <!-- 头部 -->
+  <view class="header">
+    <text class="title">游戏管理</text>
+    <button class="logout-btn" size="mini" bindtap="logout">退出</button>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="add-section">
+    <button class="add-btn" type="primary" bindtap="addGame">
+      <text class="add-icon">+</text>
+      <text>添加新游戏</text>
+    </button>
+  </view>
+
+  <!-- 游戏列表 -->
+  <view class="game-list">
+    <view class="game-item" wx:for="{{games}}" wx:key="_id">
+      <image
+        class="game-cover"
+        src="{{item.coverImage || '/images/default-cover.png'}}"
+        mode="aspectFill"
+      ></image>
+      <view class="game-info">
+        <text class="game-name">{{item.name}}</text>
+        <text class="game-meta">{{item.playerCount.min}}-{{item.playerCount.max}}人 · {{item.duration}}分钟</text>
+        <view class="game-tags">
+          <text class="tag" wx:for="{{item.tags}}" wx:key="index" wx:for-item="tag">{{tag}}</text>
+        </view>
+      </view>
+      <view class="game-actions">
+        <button
+          class="action-btn edit-btn"
+          size="mini"
+          data-id="{{item._id}}"
+          bindtap="editGame"
+        >编辑</button>
+        <button
+          class="action-btn delete-btn"
+          size="mini"
+          data-id="{{item._id}}"
+          data-name="{{item.name}}"
+          bindtap="deleteGame"
+        >删除</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty" wx:if="{{!loading && games.length === 0}}">
+    <text class="empty-text">还没有游戏，快去添加吧！</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

@@ -1,0 +1,66 @@
+<view class="container">
+  <!-- 标题 -->
+  <view class="header">
+    <text class="title">今天玩什么？</text>
+    <text class="subtitle">输入人数，让命运决定吧！</text>
+  </view>
+
+  <!-- 转盘区域 -->
+  <view class="wheel-container">
+    <view class="wheel {{spinning ? 'spinning' : ''}}" style="transform: rotate({{rotation}}deg);">
+      <view class="wheel-center">
+        <text class="wheel-icon">🎲</text>
+        <text class="wheel-text" wx:if="{{!spinning && !selectedGame}}">开始</text>
+        <text class="wheel-text" wx:if="{{spinning}}">抽取中...</text>
+        <text class="wheel-text" wx:if="{{!spinning && selectedGame}}">{{selectedGame.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 人数输入 -->
+  <view class="input-section">
+    <view class="input-label">
+      <text class="label-icon">👥</text>
+      <text class="label-text">参与人数</text>
+    </view>
+    <input
+      class="player-input"
+      type="number"
+      placeholder="请输入人数"
+      value="{{playerCount}}"
+      bindinput="onPlayerCountInput"
+    />
+  </view>
+
+  <!-- 抽取按钮 -->
+  <button
+    class="draw-btn"
+    type="primary"
+    bindtap="startDraw"
+    disabled="{{spinning || loading}}"
+  >
+    {{spinning ? '抽取中...' : '开始抽取'}}
+  </button>
+
+  <!-- 快捷操作 -->
+  <view class="quick-actions">
+    <button class="action-btn" bindtap="viewAllGames">
+      <text class="action-icon">📋</text>
+      <text class="action-text">查看所有游戏</text>
+    </button>
+    <button class="action-btn" bindtap="goToAdmin">
+      <text class="action-icon">⚙️</text>
+      <text class="action-text">管理后台</text>
+    </button>
+  </view>
+
+  <!-- 游戏数量提示 -->
+  <view class="game-count" wx:if="{{!loading}}">
+    <text>当前共有 {{games.length}} 款游戏</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

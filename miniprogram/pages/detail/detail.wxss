@@ -1,0 +1,164 @@
+.container {
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+.cover-image {
+  width: 100%;
+  height: 500rpx;
+}
+
+.game-info {
+  padding: 30rpx;
+}
+
+.game-name {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  display: block;
+}
+
+.meta-row {
+  display: flex;
+  gap: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.meta-item {
+  flex: 1;
+  background: white;
+  padding: 20rpx;
+  border-radius: 15rpx;
+  text-align: center;
+}
+
+.meta-label {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 10rpx;
+}
+
+.meta-value {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+  margin-bottom: 30rpx;
+}
+
+.tag {
+  background: #FF6B35;
+  color: white;
+  padding: 10rpx 25rpx;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+}
+
+.description {
+  background: white;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.description-text {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.8;
+}
+
+.images {
+  background: white;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15rpx;
+}
+
+.detail-image {
+  width: 100%;
+  height: 200rpx;
+  border-radius: 10rpx;
+}
+
+.videos {
+  background: white;
+  padding: 30rpx;
+  border-radius: 20rpx;
+}
+
+.video-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+}
+
+.video-item {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.video-player {
+  width: 100%;
+  height: 400rpx;
+  border-radius: 10rpx;
+}
+
+.video-title {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.bottom-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx 30rpx;
+  background: white;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.action-btn {
+  width: 100%;
+  background: #FF6B35;
+  color: white;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #999;
+}

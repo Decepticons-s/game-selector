@@ -1,0 +1,135 @@
+<view class="container">
+  <view class="form">
+    <!-- 游戏名称 -->
+    <view class="form-item">
+      <text class="label">游戏名称 *</text>
+      <input
+        class="input"
+        placeholder="请输入游戏名称"
+        value="{{form.name}}"
+        data-field="name"
+        bindinput="onInputChange"
+      />
+    </view>
+
+    <!-- 游戏描述 -->
+    <view class="form-item">
+      <text class="label">游戏描述 *</text>
+      <textarea
+        class="textarea"
+        placeholder="请输入游戏描述"
+        value="{{form.description}}"
+        data-field="description"
+        bindinput="onInputChange"
+        maxlength="500"
+      />
+    </view>
+
+    <!-- 人数范围 -->
+    <view class="form-item">
+      <text class="label">适合人数</text>
+      <view class="player-count">
+        <input
+          type="number"
+          class="input-small"
+          placeholder="最少"
+          value="{{form.playerCount.min}}"
+          data-field="min"
+          bindinput="onPlayerCountChange"
+        />
+        <text class="separator">-</text>
+        <input
+          type="number"
+          class="input-small"
+          placeholder="最多"
+          value="{{form.playerCount.max}}"
+          data-field="max"
+          bindinput="onPlayerCountChange"
+        />
+        <text class="unit">人</text>
+      </view>
+    </view>
+
+    <!-- 游戏时长 -->
+    <view class="form-item">
+      <text class="label">游戏时长（分钟）</text>
+      <input
+        type="number"
+        class="input"
+        placeholder="请输入游戏时长"
+        value="{{form.duration}}"
+        data-field="duration"
+        bindinput="onInputChange"
+      />
+    </view>
+
+    <!-- 难度 -->
+    <view class="form-item">
+      <text class="label">难度</text>
+      <picker
+        mode="selector"
+        range="{{difficulties}}"
+        range-key="label"
+        bindchange="onDifficultyChange"
+      >
+        <view class="picker">
+          {{difficulties[0].label}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 标签 -->
+    <view class="form-item">
+      <text class="label">标签</text>
+      <view class="tags">
+        <view class="tag" wx:for="{{form.tags}}" wx:key="index">
+          {{item}}
+          <text class="tag-remove" data-index="{{index}}" bindtap="removeTag">×</text>
+        </view>
+      </view>
+      <view class="tag-input-box">
+        <input
+          class="tag-input"
+          placeholder="输入标签"
+          value="{{tagInput}}"
+          bindinput="onTagInput"
+        />
+        <button class="tag-add-btn" size="mini" bindtap="addTag">添加</button>
+      </view>
+    </view>
+
+    <!-- 封面图 -->
+    <view class="form-item">
+      <text class="label">封面图</text>
+      <view class="cover-upload">
+        <image wx:if="{{form.coverImage}}" class="cover-image" src="{{form.coverImage}}" mode="aspectFill"></image>
+        <button class="upload-btn" bindtap="uploadCover" loading="{{uploading}}">
+          {{form.coverImage ? '更换封面' : '上传封面'}}
+        </button>
+      </view>
+    </view>
+
+    <!-- 详情图片 -->
+    <view class="form-item">
+      <text class="label">详情图片</text>
+      <view class="images-grid">
+        <view class="image-item" wx:for="{{form.images}}" wx:key="index">
+          <image class="image" src="{{item}}" mode="aspectFill"></image>
+          <text class="image-remove" data-index="{{index}}" bindtap="removeImage">×</text>
+        </view>
+        <button wx:if="{{form.images.length < 9}}" class="add-image-btn" bindtap="uploadImages">+</button>
+      </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <button
+      class="submit-btn"
+      type="primary"
+      bindtap="submit"
+      loading="{{submitting}}"
+      disabled="{{submitting}}"
+    >
+      {{isEdit ? '更新游戏' : '添加游戏'}}
+    </button>
+  </view>
+</view>
