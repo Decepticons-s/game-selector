@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
+- 始终使用中文
 ## Project Overview
 
 **今天玩什么** (What to Play Today) - A WeChat Mini Program for randomly selecting board games based on player count. The project consists of:

@@ -5,9 +5,8 @@ Page({
     playerCount: '',
     games: [],
     loading: false,
-    spinning: false,
-    selectedGame: null,
-    rotation: 0
+    isRevealed: false,
+    selectedGame: null
   },
 
   onLoad() {
@@ -37,11 +36,12 @@ Page({
     });
   },
 
-  // 开始抽取
-  async startDraw() {
-    const { playerCount, games, spinning } = this.data;
+  // 点击卡片开始抽取
+  handleCardClick() {
+    const { playerCount, games, isRevealed } = this.data;
 
-    if (spinning) {
+    // 如果已经翻转，不响应点击
+    if (isRevealed) {
       return;
     }
 
@@ -68,50 +68,25 @@ Page({
       return;
     }
 
-    // 开始转盘动画
-    this.setData({ spinning: true });
-
     // 随机选择一个游戏
     const randomIndex = Math.floor(Math.random() * suitableGames.length);
     const selectedGame = suitableGames[randomIndex];
 
-    // 模拟转盘旋转
-    const baseRotation = 360 * 5; // 转5圈
-    const finalRotation = baseRotation + Math.random() * 360;
-
-    this.setData({
-      rotation: finalRotation
-    });
-
-    // 等待动画完成
+    // 延迟翻转，增加悬念
     setTimeout(() => {
       this.setData({
-        spinning: false,
-        selectedGame
+        selectedGame,
+        isRevealed: true
       });
+    }, 300);
+  },
 
-      // 显示结果
-      wx.showModal({
-        title: '抽到了！',
-        content: `今天玩《${selectedGame.name}》吧！`,
-        confirmText: '查看详情',
-        cancelText: '再抽一次',
-        success: (res) => {
-          if (res.confirm) {
-            // 跳转到详情页
-            wx.navigateTo({
-              url: `/pages/detail/detail?id=${selectedGame._id}`
-            });
-          } else {
-            // 重置转盘
-            this.setData({
-              rotation: 0,
-              selectedGame: null
-            });
-          }
-        }
-      });
-    }, 3000);
+  // 重置
+  handleReset() {
+    this.setData({
+      isRevealed: false,
+      selectedGame: null
+    });
   },
 
   // 查看所有游戏

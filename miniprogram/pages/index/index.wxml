@@ -1,45 +1,64 @@
 <view class="container">
   <!-- 标题 -->
   <view class="header">
-    <text class="title">今天玩什么？</text>
-    <text class="subtitle">输入人数，让命运决定吧！</text>
-  </view>
-
-  <!-- 转盘区域 -->
-  <view class="wheel-container">
-    <view class="wheel {{spinning ? 'spinning' : ''}}" style="transform: rotate({{rotation}}deg);">
-      <view class="wheel-center">
-        <text class="wheel-icon">🎲</text>
-        <text class="wheel-text" wx:if="{{!spinning && !selectedGame}}">开始</text>
-        <text class="wheel-text" wx:if="{{spinning}}">抽取中...</text>
-        <text class="wheel-text" wx:if="{{!spinning && selectedGame}}">{{selectedGame.name}}</text>
-      </view>
-    </view>
+    <text class="title">游戏抽取器</text>
+    <text class="subtitle">输入玩家人数，随机抽取适合的游戏</text>
   </view>
 
   <!-- 人数输入 -->
   <view class="input-section">
     <view class="input-label">
       <text class="label-icon">👥</text>
-      <text class="label-text">参与人数</text>
     </view>
     <input
       class="player-input"
       type="number"
-      placeholder="请输入人数"
+      placeholder="玩家人数"
       value="{{playerCount}}"
       bindinput="onPlayerCountInput"
     />
+    <text class="input-unit">人</text>
   </view>
 
-  <!-- 抽取按钮 -->
+  <!-- 游戏卡片 -->
+  <view class="wheel-container">
+    <view class="game-card {{isRevealed ? 'flipped' : ''}}" bindtap="handleCardClick">
+      <!-- 卡片正面 -->
+      <view class="card-face card-front">
+        <view class="card-icon-wrapper">
+          <text class="card-icon">🎮</text>
+        </view>
+        <text class="card-placeholder">?</text>
+      </view>
+
+      <!-- 卡片背面 -->
+      <view class="card-face card-back">
+        <view class="card-content" wx:if="{{selectedGame}}">
+          <view class="card-title">{{selectedGame.name}}</view>
+          <view class="card-description">{{selectedGame.description}}</view>
+          <view class="card-info">
+            <view class="card-info-item">
+              <text class="card-info-icon">👥</text>
+              <text>{{selectedGame.playerCount.min}}-{{selectedGame.playerCount.max}}人</text>
+            </view>
+            <view class="card-info-item">
+              <text class="card-info-icon">⏱️</text>
+              <text>{{selectedGame.duration}}分钟</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 重新抽取按钮 -->
   <button
-    class="draw-btn"
-    type="primary"
-    bindtap="startDraw"
-    disabled="{{spinning || loading}}"
+    class="reset-btn"
+    wx:if="{{isRevealed}}"
+    bindtap="handleReset"
   >
-    {{spinning ? '抽取中...' : '开始抽取'}}
+    <text class="reset-icon">🔄</text>
+    <text>重新抽取</text>
   </button>
 
   <!-- 快捷操作 -->
