@@ -1,85 +1,41 @@
-<view class="container">
-  <!-- 标题 -->
-  <view class="header">
-    <text class="title">游戏抽取器</text>
-    <text class="subtitle">输入玩家人数，随机抽取适合的游戏</text>
+<view class="page">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="title">今天玩什么</text>
+    <text class="subtitle">输入玩家人数，点击抽取游戏</text>
   </view>
 
-  <!-- 人数输入 -->
-  <view class="input-section">
-    <view class="input-label">
-      <text class="label-icon">👥</text>
-    </view>
-    <input
-      class="player-input"
-      type="number"
-      placeholder="玩家人数"
-      value="{{playerCount}}"
-      bindinput="onPlayerCountInput"
-    />
-    <text class="input-unit">人</text>
-  </view>
-
-  <!-- 游戏卡片 -->
-  <view class="wheel-container">
-    <view class="game-card {{isRevealed ? 'flipped' : ''}}" bindtap="handleCardClick">
-      <!-- 卡片正面 -->
-      <view class="card-face card-front">
-        <view class="card-icon-wrapper">
-          <text class="card-icon">🎮</text>
-        </view>
-        <text class="card-placeholder">?</text>
-      </view>
-
-      <!-- 卡片背面 -->
-      <view class="card-face card-back">
-        <view class="card-content" wx:if="{{selectedGame}}">
-          <view class="card-title">{{selectedGame.name}}</view>
-          <view class="card-description">{{selectedGame.description}}</view>
-          <view class="card-info">
-            <view class="card-info-item">
-              <text class="card-info-icon">👥</text>
-              <text>{{selectedGame.playerCount.min}}-{{selectedGame.playerCount.max}}人</text>
-            </view>
-            <view class="card-info-item">
-              <text class="card-info-icon">⏱️</text>
-              <text>{{selectedGame.duration}}分钟</text>
-            </view>
-          </view>
-        </view>
-      </view>
+  <!-- 人数输入区域 -->
+  <view class="player-input-section">
+    <view class="input-container">
+      <input
+        class="player-input"
+        type="number"
+        placeholder="请输入人数"
+        value="{{playerCount}}"
+        bindinput="onPlayerCountInput"
+      />
     </view>
   </view>
 
-  <!-- 重新抽取按钮 -->
-  <button
-    class="reset-btn"
-    wx:if="{{isRevealed}}"
-    bindtap="handleReset"
-  >
-    <text class="reset-icon">🔄</text>
-    <text>重新抽取</text>
-  </button>
+  <!-- 中央抽取卡片 -->
+  <view class="central-card" bindtap="startDraw">
+    <!-- 卡片内容（未动画时显示） -->
+    <view class="card-content" wx:if="{{!isAnimating}}">
+      <view class="game-icon">
+        <image src="/images/game-icon.svg" class="icon-image" />
+      </view>
+      <text class="click-hint">点击抽取</text>
+    </view>
 
-  <!-- 快捷操作 -->
-  <view class="quick-actions">
-    <button class="action-btn" bindtap="viewAllGames">
-      <text class="action-icon">📋</text>
-      <text class="action-text">查看所有游戏</text>
-    </button>
-    <button class="action-btn" bindtap="goToAdmin">
-      <text class="action-icon">⚙️</text>
-      <text class="action-text">管理后台</text>
-    </button>
+    <!-- Canvas 区域 -->
+    <view class="canvas-wrapper">
+      <canvas type="2d" id="gameCanvas" class="game-canvas"></canvas>
+    </view>
   </view>
 
-  <!-- 游戏数量提示 -->
-  <view class="game-count" wx:if="{{!loading}}">
-    <text>当前共有 {{games.length}} 款游戏</text>
-  </view>
-
-  <!-- 加载中 -->
-  <view class="loading" wx:if="{{loading}}">
-    <text>加载中...</text>
+  <!-- 加载状态 -->
+  <view class="loading-overlay" wx:if="{{loading}}">
+    <text class="loading-text">加载中...</text>
   </view>
 </view>

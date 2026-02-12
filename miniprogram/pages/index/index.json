@@ -1,3 +1,8 @@
 {
-  "navigationBarTitleText": "抽取游戏"
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#F3F4F6",
+  "enablePullDownRefresh": true,
+  "usingComponents": {}
 }

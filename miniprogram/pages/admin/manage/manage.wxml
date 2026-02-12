@@ -18,7 +18,7 @@
     <view class="game-item" wx:for="{{games}}" wx:key="_id">
       <image
         class="game-cover"
-        src="{{item.coverImage || '/images/default-cover.png'}}"
+        src="{{item.coverImage || '/images/default-cover.svg'}}"
         mode="aspectFill"
       ></image>
       <view class="game-info">

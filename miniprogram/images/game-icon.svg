@@ -1,0 +1,13 @@
+<svg width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+  <!-- 圆角背景 -->
+  <rect x="0" y="0" width="80" height="80" rx="16" ry="16" fill="#FFC83A"/>
+
+  <!-- 游戏手柄图标 -->
+  <circle cx="40" cy="40" r="16" fill="#FFB020" opacity="0.6"/>
+  <rect x="28" y="32" width="24" height="16" rx="4" ry="4" fill="#FFD43A"/>
+  <circle cx="40" cy="40" r="8" fill="#FFB020"/>
+  <circle cx="22" cy="30" r="3" fill="#FFB020"/>
+  <circle cx="58" cy="30" r="3" fill="#FFB020"/>
+  <circle cx="22" cy="50" r="3" fill="#FFB020"/>
+  <circle cx="58" cy="50" r="3" fill="#FFB020"/>
+</svg>

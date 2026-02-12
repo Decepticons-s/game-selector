@@ -2,7 +2,7 @@
   <!-- 封面图 -->
   <image
     class="cover-image"
-    src="{{game.coverImage || '/images/default-cover.png'}}"
+    src="{{game.coverImage || '/images/default-cover.svg'}}"
     mode="aspectFill"
     data-url="{{game.coverImage}}"
     bindtap="previewImage"
