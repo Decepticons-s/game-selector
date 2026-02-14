@@ -16,7 +16,6 @@ Page({
   // Canvas 相关属性
   canvas: null,             // Canvas 节点
   ctx: null,                // Canvas 2D 上下文
-  cardImages: [],           // 预加载的卡片图片
   animationId: null,        // requestAnimationFrame ID
   systemInfo: null,         // 系统信息
 
@@ -61,7 +60,6 @@ Page({
     if (this.animationId) {
       this.canvas.cancelAnimationFrame(this.animationId);
     }
-    this.cardImages = [];
     this.canvas = null;
     this.ctx = null;
   },
@@ -91,9 +89,8 @@ Page({
         buttonText: games.length > 0 ? '开始抽取' : '暂无游戏'
       });
 
-      // 如果 Canvas 已初始化，重新预加载图片并绘制
+      // 如果 Canvas 已初始化，绘制卡片
       if (this.canvas && games.length > 0) {
-        await this.preloadImages();
         this.drawAllCards(0);  // 绘制初始状态
       }
     } catch (error) {
@@ -153,12 +150,9 @@ Page({
           canvasReady: true
         });
 
-        // 预加载图片并绘制初始状态
+        // 绘制初始状态
         if (this.data.games.length > 0) {
-          this.preloadImages().then(() => {
-            // 绘制初始状态（显示第一张卡片在中心）
-            this.drawAllCards(0);
-          });
+          this.drawAllCards(0);
         }
       });
   },

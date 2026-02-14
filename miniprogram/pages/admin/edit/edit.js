@@ -20,12 +20,6 @@ Page({
       duration: 30,
       status: 'active'
     },
-    tagInput: '',
-    difficulties: [
-      { label: '简单', value: 'easy' },
-      { label: '中等', value: 'medium' },
-      { label: '困难', value: 'hard' }
-    ],
     uploading: false,
     submitting: false
   },
@@ -86,39 +80,6 @@ Page({
     });
   },
 
-  onDifficultyChange(e) {
-    this.setData({
-      'form.difficulty': this.data.difficulties[e.detail.value].value
-    });
-  },
-
-  // 标签处理
-  onTagInput(e) {
-    this.setData({
-      tagInput: e.detail.value
-    });
-  },
-
-  addTag() {
-    const { tagInput, form } = this.data;
-    if (!tagInput.trim()) return;
-
-    if (!form.tags.includes(tagInput.trim())) {
-      this.setData({
-        'form.tags': [...form.tags, tagInput.trim()],
-        tagInput: ''
-      });
-    }
-  },
-
-  removeTag(e) {
-    const { index } = e.currentTarget.dataset;
-    const tags = this.data.form.tags.filter((_, i) => i !== index);
-    this.setData({
-      'form.tags': tags
-    });
-  },
-
   // 上传封面图
   async uploadCover() {
     try {
@@ -132,7 +93,7 @@ Page({
       const result = await api.uploadImage(tempFilePaths[0]);
 
       this.setData({
-        'form.coverImage': result.url,
+        'form.coverImage': api.getImageUrl(result.url),
         uploading: false
       });
 
@@ -147,46 +108,6 @@ Page({
         icon: 'none'
       });
     }
-  },
-
-  // 上传详情图片
-  async uploadImages() {
-    try {
-      const { tempFilePaths } = await wx.chooseImage({
-        count: 9 - this.data.form.images.length,
-        sizeType: ['compressed'],
-        sourceType: ['album', 'camera']
-      });
-
-      this.setData({ uploading: true });
-
-      for (let filePath of tempFilePaths) {
-        const result = await api.uploadImage(filePath);
-        this.setData({
-          'form.images': [...this.data.form.images, result.url]
-        });
-      }
-
-      this.setData({ uploading: false });
-      wx.showToast({
-        title: '上传成功',
-        icon: 'success'
-      });
-    } catch (error) {
-      this.setData({ uploading: false });
-      wx.showToast({
-        title: '上传失败',
-        icon: 'none'
-      });
-    }
-  },
-
-  removeImage(e) {
-    const { index } = e.currentTarget.dataset;
-    const images = this.data.form.images.filter((_, i) => i !== index);
-    this.setData({
-      'form.images': images
-    });
   },
 
   // 提交表单

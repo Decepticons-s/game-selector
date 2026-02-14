@@ -1,5 +1,16 @@
 <view class="container">
   <view class="form">
+    <!-- 封面图 -->
+    <view class="form-item">
+      <text class="label">封面图</text>
+      <view class="cover-upload">
+        <image wx:if="{{form.coverImage}}" class="cover-image" src="{{form.coverImage}}" mode="aspectFill"></image>
+        <button class="upload-btn" bindtap="uploadCover" loading="{{uploading}}">
+          {{form.coverImage ? '更换封面' : '上传封面'}}
+        </button>
+      </view>
+    </view>
+
     <!-- 游戏名称 -->
     <view class="form-item">
       <text class="label">游戏名称 *</text>
@@ -61,64 +72,6 @@
         data-field="duration"
         bindinput="onInputChange"
       />
-    </view>
-
-    <!-- 难度 -->
-    <view class="form-item">
-      <text class="label">难度</text>
-      <picker
-        mode="selector"
-        range="{{difficulties}}"
-        range-key="label"
-        bindchange="onDifficultyChange"
-      >
-        <view class="picker">
-          {{difficulties[0].label}}
-        </view>
-      </picker>
-    </view>
-
-    <!-- 标签 -->
-    <view class="form-item">
-      <text class="label">标签</text>
-      <view class="tags">
-        <view class="tag" wx:for="{{form.tags}}" wx:key="index">
-          {{item}}
-          <text class="tag-remove" data-index="{{index}}" bindtap="removeTag">×</text>
-        </view>
-      </view>
-      <view class="tag-input-box">
-        <input
-          class="tag-input"
-          placeholder="输入标签"
-          value="{{tagInput}}"
-          bindinput="onTagInput"
-        />
-        <button class="tag-add-btn" size="mini" bindtap="addTag">添加</button>
-      </view>
-    </view>
-
-    <!-- 封面图 -->
-    <view class="form-item">
-      <text class="label">封面图</text>
-      <view class="cover-upload">
-        <image wx:if="{{form.coverImage}}" class="cover-image" src="{{form.coverImage}}" mode="aspectFill"></image>
-        <button class="upload-btn" bindtap="uploadCover" loading="{{uploading}}">
-          {{form.coverImage ? '更换封面' : '上传封面'}}
-        </button>
-      </view>
-    </view>
-
-    <!-- 详情图片 -->
-    <view class="form-item">
-      <text class="label">详情图片</text>
-      <view class="images-grid">
-        <view class="image-item" wx:for="{{form.images}}" wx:key="index">
-          <image class="image" src="{{item}}" mode="aspectFill"></image>
-          <text class="image-remove" data-index="{{index}}" bindtap="removeImage">×</text>
-        </view>
-        <button wx:if="{{form.images.length < 9}}" class="add-image-btn" bindtap="uploadImages">+</button>
-      </view>
     </view>
 
     <!-- 提交按钮 -->

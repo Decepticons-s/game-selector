@@ -2,7 +2,7 @@
   <!-- 页面标题 -->
   <view class="page-header">
     <text class="title" bindlongpress="onTitleLongPress">今天玩什么</text>
-    <text class="subtitle">输入玩家人数，点击抽取游戏</text>
+    <text class="subtitle">输入玩家人数，点击卡片抽取游戏</text>
   </view>
 
   <!-- 人数输入区域 -->
@@ -20,14 +20,6 @@
 
   <!-- 中央抽取卡片 -->
   <view class="central-card" bindtap="startDraw">
-    <!-- 卡片内容（未动画时显示） -->
-    <view class="card-content" wx:if="{{!isAnimating}}">
-      <view class="game-icon">
-        <image src="/images/game-icon.svg" class="icon-image" />
-      </view>
-      <text class="click-hint">点击抽取</text>
-    </view>
-
     <!-- Canvas 区域 -->
     <view class="canvas-wrapper">
       <canvas type="2d" id="gameCanvas" class="game-canvas"></canvas>

@@ -1,15 +1,7 @@
-// 根据小程序环境自动切换服务器地址
-// 开发版 → 本地开发服务器，体验版/正式版 → 云托管域名
-function getBaseUrl() {
-  const envVersion = __wxConfig.envVersion || 'develop';
-  if (envVersion === 'develop') {
-    return 'http://localhost:3000';
-  }
-  // 体验版和正式版使用云托管域名，部署时替换为实际域名
-  return 'https://your-cloud-host.com';
-}
-
-const BASE_URL = getBaseUrl() + '/api';
+// 本地开发服务器地址
+// 手机预览时改成电脑的局域网 IP，例如 http://192.168.1.100:3000
+const SERVER_URL = 'http://192.168.10.45:3000';
+const BASE_URL = SERVER_URL + '/api';
 
 /**
  * 将相对路径的图片 URL 转为完整地址
@@ -18,7 +10,7 @@ const BASE_URL = getBaseUrl() + '/api';
 function getImageUrl(path) {
   if (!path) return '';
   if (path.startsWith('http://') || path.startsWith('https://')) return path;
-  return getBaseUrl() + path;
+  return SERVER_URL + path;
 }
 
 /**
