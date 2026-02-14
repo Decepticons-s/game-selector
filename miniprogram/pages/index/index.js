@@ -21,6 +21,25 @@ Page({
   systemInfo: null,         // 系统信息
 
   /**
+   * 隐藏管理员入口 - 长按标题触发
+   */
+  onTitleLongPress() {
+    wx.login({
+      success: (res) => {
+        if (res.code) {
+          api.adminLoginByCode(res.code).then(result => {
+            wx.setStorageSync('token', result.token);
+            wx.setStorageSync('adminInfo', result.admin);
+            wx.navigateTo({ url: '/pages/admin/manage/manage' });
+          }).catch(() => {
+            // 验证失败，静默处理
+          });
+        }
+      }
+    });
+  },
+
+  /**
    * 页面加载
    */
   onLoad() {
@@ -178,12 +197,7 @@ Page({
 
         // 设置图片源
         if (game.coverImage) {
-          // 如果是本地服务器图片，需要完整 URL
-          if (game.coverImage.startsWith('/uploads/')) {
-            img.src = `http://localhost:3000${game.coverImage}`;
-          } else {
-            img.src = game.coverImage;
-          }
+          img.src = api.getImageUrl(game.coverImage);
         } else {
           img.src = '/images/default-cover.svg';
         }

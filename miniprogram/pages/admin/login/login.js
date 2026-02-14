@@ -2,7 +2,7 @@ const api = require('../../../utils/api');
 
 Page({
   data: {
-    loading: false
+    status: 'checking' // checking | success | fail
   },
 
   onLoad() {
@@ -10,68 +10,46 @@ Page({
     const token = wx.getStorageSync('token');
     if (token) {
       this.checkAdminStatus();
+    } else {
+      this.autoLogin();
     }
   },
 
-  // 管理员登录
-  async login() {
-    this.setData({ loading: true });
-
-    try {
-      // 获取用户信息
-      const { userInfo } = await wx.getUserProfile({
-        desc: '用于管理员身份验证'
-      });
-
-      // 登录获取 openid（实际项目中需要调用后端接口获取）
-      const loginRes = await wx.login();
-
-      // 这里简化处理，实际需要后端接口将 code 换取 openid
-      // 临时使用测试 openid
-      const openid = 'test-admin-openid';
-
-      // 调用管理员登录接口
-      const result = await api.adminLogin(openid, userInfo.nickName);
-
-      // 保存 token
-      wx.setStorageSync('token', result.token);
-      wx.setStorageSync('adminInfo', result.admin);
-
-      wx.showToast({
-        title: '登录成功',
-        icon: 'success'
-      });
-
-      // 跳转到管理页面
-      setTimeout(() => {
-        wx.redirectTo({
-          url: '/pages/admin/manage/manage'
+  // 自动登录：wx.login 获取 code → 后端验证
+  autoLogin() {
+    this.setData({ status: 'checking' });
+    wx.login({
+      success: (res) => {
+        if (!res.code) {
+          this.setData({ status: 'fail' });
+          return;
+        }
+        api.adminLoginByCode(res.code).then(result => {
+          wx.setStorageSync('token', result.token);
+          wx.setStorageSync('adminInfo', result.admin);
+          this.setData({ status: 'success' });
+          setTimeout(() => {
+            wx.redirectTo({ url: '/pages/admin/manage/manage' });
+          }, 500);
+        }).catch(() => {
+          this.setData({ status: 'fail' });
         });
-      }, 1500);
-
-    } catch (error) {
-      console.error('登录失败:', error);
-      wx.showToast({
-        title: error.error || '登录失败',
-        icon: 'none'
-      });
-    } finally {
-      this.setData({ loading: false });
-    }
+      },
+      fail: () => {
+        this.setData({ status: 'fail' });
+      }
+    });
   },
 
   // 检查管理员状态
   async checkAdminStatus() {
     try {
       await api.checkAdmin();
-      // 已登录，跳转到管理页面
-      wx.redirectTo({
-        url: '/pages/admin/manage/manage'
-      });
+      wx.redirectTo({ url: '/pages/admin/manage/manage' });
     } catch (error) {
-      // token 失效，清除本地存储
       wx.removeStorageSync('token');
       wx.removeStorageSync('adminInfo');
+      this.autoLogin();
     }
   }
 });

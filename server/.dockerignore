@@ -1,0 +1,15 @@
+# node_modules
+node_modules
+npm-debug.log
+
+# 开发文件
+.env
+nodemon.json
+seed-data.js
+
+# 上传文件（生产环境用持久卷）
+uploads/
+
+# Git
+.git
+.gitignore

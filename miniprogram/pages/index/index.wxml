@@ -1,7 +1,7 @@
 <view class="page">
   <!-- 页面标题 -->
   <view class="page-header">
-    <text class="title">今天玩什么</text>
+    <text class="title" bindlongpress="onTitleLongPress">今天玩什么</text>
     <text class="subtitle">输入玩家人数，点击抽取游戏</text>
   </view>
 

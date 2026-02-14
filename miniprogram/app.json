@@ -12,19 +12,5 @@
     "navigationBarBackgroundColor": "#FF6B35",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#F5F5F5"
-  },
-  "tabBar": {
-    "color": "#666666",
-    "selectedColor": "#FF6B35",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "抽取"
-      },
-      {
-        "pagePath": "pages/list/list",
-        "text": "列表"
-      }
-    ]
   }
 }

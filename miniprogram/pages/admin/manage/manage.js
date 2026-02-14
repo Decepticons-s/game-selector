@@ -97,8 +97,8 @@ Page({
         if (res.confirm) {
           wx.removeStorageSync('token');
           wx.removeStorageSync('adminInfo');
-          wx.redirectTo({
-            url: '/pages/admin/login/login'
+          wx.reLaunch({
+            url: '/pages/index/index'
           });
         }
       }

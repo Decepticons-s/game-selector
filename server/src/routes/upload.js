@@ -34,7 +34,7 @@ router.post('/image', auth, upload.single('file'), (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: '没有上传文件' });
     }
-    const fileUrl = `http://localhost:${process.env.PORT}/uploads/images/${req.file.filename}`;
+    const fileUrl = `/uploads/images/${req.file.filename}`;
     res.json({ url: fileUrl });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -46,7 +46,7 @@ router.post('/video', auth, upload.single('file'), (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: '没有上传文件' });
     }
-    const fileUrl = `http://localhost:${process.env.PORT}/uploads/videos/${req.file.filename}`;
+    const fileUrl = `/uploads/videos/${req.file.filename}`;
     res.json({ url: fileUrl });
   } catch (error) {
     res.status(500).json({ error: error.message });

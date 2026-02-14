@@ -1,17 +1,19 @@
 <view class="container">
   <view class="login-box">
     <image class="logo" src="/images/logo.png" mode="aspectFit"></image>
-    <text class="title">管理员登录</text>
-    <text class="desc">仅限管理员访问</text>
 
-    <button
-      class="login-btn"
-      type="primary"
-      bindtap="login"
-      loading="{{loading}}"
-      disabled="{{loading}}"
-    >
-      {{loading ? '登录中...' : '微信登录'}}
-    </button>
+    <block wx:if="{{status === 'checking'}}">
+      <text class="title">身份验证中...</text>
+    </block>
+
+    <block wx:elif="{{status === 'success'}}">
+      <text class="title">验证通过</text>
+      <text class="desc">正在跳转...</text>
+    </block>
+
+    <block wx:else>
+      <text class="title">无访问权限</text>
+      <text class="desc">当前账号不是管理员</text>
+    </block>
   </view>
 </view>
